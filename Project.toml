@@ -1,0 +1,7 @@
+name = "PyCallUtils"
+uuid = "e1325381-314c-4124-8440-3da57ebb5f45"
+authors = ["dokudo91 <92647519+dokudo91@users.noreply.github.com>"]
+version = "0.1.0"
+
+[deps]
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
