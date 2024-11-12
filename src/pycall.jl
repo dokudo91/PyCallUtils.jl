@@ -20,3 +20,5 @@ function pyimport_object(modulename, objectname)
     pymodule = pyimport_conda(modulename, modulename)
     getproperty(pymodule, objectname)::PyObject
 end
+
+condaimport(modulename) = pyimport_conda(modulename, modulename)::PyObject
