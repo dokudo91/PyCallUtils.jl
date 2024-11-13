@@ -1,4 +1,5 @@
 using PyCall
+using Conda
 
 """
     pyimport_object(modulename, condapkg, objectname)
@@ -35,4 +36,6 @@ macro pyfrom(name, varnames...)
         end
     end
 end
-python(cmd) = run(`$(PyCall.python) -m $cmd`)
+python_m(cmd) = run(`$(PyCall.python) -m $cmd`)
+python(cmd) = run(`$(PyCall.python) $cmd`)
+conda(cmd) = Conda.runconda(cmd)
