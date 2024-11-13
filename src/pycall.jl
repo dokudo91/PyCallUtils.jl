@@ -21,4 +21,18 @@ function pyimport_object(modulename, objectname)
     getproperty(pymodule, objectname)::PyObject
 end
 
-condaimport(modulename) = pyimport_conda(modulename, modulename)::PyObject
+macro pyfrom(name, varnames...)
+    mname = PyCall.modulename(name)
+    for Name in varnames
+        quoteName = Expr(:quote, Name)
+        quote
+            if !isdefined($__module__, $quoteName)
+                const $(esc(Name)) = PyCall._pywrap_pyimport(pyimport($mname))
+            elseif !isa($(esc(Name)), Module)
+                error("@pyimport: ", $(Expr(:quote, Name)), " already defined")
+            end
+            nothing
+        end
+    end
+end
+python(cmd) = run(`$(PyCall.python) -m $cmd`)
