@@ -24,5 +24,5 @@ end
 macro pyfrom(lib, fs...)
     mdl = replace(string(lib), r"[\(\)]" => "")
     exs = [:($f = pyimport($mdl).$(string(f))) for f in fs]
-    esc(Expr(:block, :(using PyCall), exs...))
+    esc(Expr(:block, exs...))
 end
