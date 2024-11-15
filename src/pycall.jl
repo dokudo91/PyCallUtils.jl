@@ -1,5 +1,4 @@
 using PyCall
-using Conda
 
 """
     pyimport_object(modulename, condapkg, objectname)
@@ -24,6 +23,6 @@ end
 
 macro pyfrom(lib, fs...)
     mdl = replace(string(lib), r"[\(\)]" => "")
-    exs = [:($f = PyCall.pyimport($mdl).$(string(f))) for f in fs]
-    esc(Expr(:block, exs...))
+    exs = [:($f = pyimport($mdl).$(string(f))) for f in fs]
+    esc(Expr(:block, :(using PyCall), exs...))
 end
